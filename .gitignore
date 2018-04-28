@@ -3,3 +3,7 @@
 ################################################################################
 
 /MassTransit.MultiStep.Portal/bin/Debug/netcoreapp2.0
+/MassTransit.MultiStep.Portal/obj
+/obj
+/MassTransit.MultiStep.Saga/obj
+/.vs

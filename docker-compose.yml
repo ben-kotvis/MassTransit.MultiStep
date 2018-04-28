@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  masstransit.multistep.portal:
+    image: masstransitmultistepportal
+    build:
+      context: .
+      dockerfile: MassTransit.MultiStep.Portal/Dockerfile
+  abi-rabbit:
+    ports:
+     - "5672:5672"
+     - "8086:15672"    
+    volumes:
+     - /var/lib/rabbitmq
+    image: rabbitmq:3-management
