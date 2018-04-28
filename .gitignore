@@ -10,3 +10,5 @@
 /MassTransit.MultiStep.Common/bin/Debug/netstandard2.0
 /MassTransit.MultiStep.Common/obj
 /MassTransit.MultiStep.Saga/bin/Debug/netcoreapp2.0
+/MassTransit.MultiStep.CreditService/bin/Debug/netcoreapp2.0
+/MassTransit.MultiStep.CreditService/obj

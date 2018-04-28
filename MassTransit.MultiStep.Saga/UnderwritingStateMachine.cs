@@ -1,4 +1,5 @@
 ﻿using Automatonymous;
+using MassTransit.MultiStep.Common.Commands;
 using MassTransit.MultiStep.Common.EventMessages;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,11 @@ namespace MassTransit.MultiStep.Saga
                     .Then(context =>
                     {
                         context.Instance.JobRequestId = context.Data.SubmissionId;
+                        context.Instance.SubmissionId = context.Data.SubmissionId;
                     })
                     .ThenAsync(context => Console.Out.WriteLineAsync($"Submission Submitted"))
-                    .TransitionTo(Complete)
+                    .ThenAsync(context => context.Publish(new Credit() { SubmissionId = context.Instance.SubmissionId.Value }))
+                    .TransitionTo(Active)
                     .Finalize()
                     );
         }
@@ -32,5 +35,10 @@ namespace MassTransit.MultiStep.Saga
         public State Complete { get; private set; }
 
         public Event<IUnderwritingSubmissionSubmitted> UnderwritingSubmissionSubmitted { get; private set; }
+    }
+
+    public class Credit : ICheckCreditForSubmission
+    {
+        public Guid SubmissionId { get; set; }
     }
 }

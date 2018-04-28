@@ -18,3 +18,9 @@ services:
     build:
       context: .
       dockerfile: MassTransit.MultiStep.Saga/Dockerfile
+  masstransit.multistep.creditservice:
+    image: masstransitmultistepcreditservice
+    build:
+      context: .
+      dockerfile: MassTransit.MultiStep.CreditService/Dockerfile
+      
