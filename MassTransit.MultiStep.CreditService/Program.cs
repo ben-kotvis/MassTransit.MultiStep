@@ -1,5 +1,4 @@
-﻿using MassTransit.MultiStep.Common.Commands;
-using System;
+﻿using System;
 
 namespace MassTransit.MultiStep.CreditService
 {
@@ -19,6 +18,12 @@ namespace MassTransit.MultiStep.CreditService
                 {
                     e.PrefetchCount = 8;
                     e.Consumer<CreditCheckConsumer>();
+                });
+
+                sbc.ReceiveEndpoint(host, "request-assesment", e =>
+                {
+                    e.PrefetchCount = 8;
+                    e.Consumer<RequestAssessmentConsumer>();
                 });
             });
 

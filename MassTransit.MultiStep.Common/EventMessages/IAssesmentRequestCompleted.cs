@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MassTransit.MultiStep.Common.Commands
+namespace MassTransit.MultiStep.Common.EventMessages
 {
-    public interface ICheckCreditForSubmission
+    public interface IAssesmentRequestCompleted
     {
         Guid SubmissionId { get; set; }
     }

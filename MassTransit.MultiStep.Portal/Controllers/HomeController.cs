@@ -23,7 +23,7 @@ namespace MassTransit.MultiStep.Portal.Controllers
             return View();
         }
 
-        public async Task<IActionResult> About()
+        public async Task<IActionResult> SubmitPolicyRequest()
         {
             await _eventPublishingService.Publish<IUnderwritingSubmissionSubmitted>(new UnderwritingSubmissionSubmitted()
             {
@@ -31,6 +31,11 @@ namespace MassTransit.MultiStep.Portal.Controllers
                 SubmittedBy = "Ben"
             });
 
+            return View();
+        }
+
+        public IActionResult About()
+        {
             ViewData["Message"] = "Your application description page.";
 
             return View();

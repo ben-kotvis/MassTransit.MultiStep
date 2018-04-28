@@ -1,5 +1,4 @@
 ﻿using Automatonymous;
-using MassTransit.MultiStep.Common.Commands;
 using MassTransit.MultiStep.Common.EventMessages;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ namespace MassTransit.MultiStep.Saga
             InstanceState(x => x.CurrentState);
 
             Event(() => UnderwritingSubmissionSubmitted, x => x.CorrelateById(context => context.Message.SubmissionId));
+            Event(() => CreditCheckCompleted, x => x.CorrelateById(context => context.Message.SubmissionId));
+            Event(() => AssesmentRequestCompleted, x => x.CorrelateById(context => context.Message.SubmissionId));
 
             Initially(
                 When(UnderwritingSubmissionSubmitted)
@@ -23,11 +24,18 @@ namespace MassTransit.MultiStep.Saga
                         context.Instance.JobRequestId = context.Data.SubmissionId;
                         context.Instance.SubmissionId = context.Data.SubmissionId;
                     })
-                    .ThenAsync(context => Console.Out.WriteLineAsync($"Submission Submitted"))
-                    .ThenAsync(context => context.Publish(new Credit() { SubmissionId = context.Instance.SubmissionId.Value }))
+                    .ThenAsync(context => Console.Out.WriteLineAsync($"!!!!!!!! Submission Submitted"))
+                    .ThenAsync(context => context.Publish(new UnderwritingSubmissionActivated() { SubmissionId = context.Instance.SubmissionId.Value }))
                     .TransitionTo(Active)
-                    .Finalize()
                     );
+            During(Active,
+                When(CreditCheckCompleted)
+                    .Then(context => context.Instance.Tracking |= UnderwritingStateTracking.CreditCheckCompleted)
+                    .ThenAsync(context => Console.Out.WriteLineAsync($"!!!!!!!! Tracking is {context.Instance.Tracking}")),
+                When(AssesmentRequestCompleted)
+                    .Then(context => context.Instance.Tracking |= UnderwritingStateTracking.AssesmentRequestCompleted)
+                    .ThenAsync(context => Console.Out.WriteLineAsync($"!!!!!!!! Tracking is {context.Instance.Tracking}"))
+                );
         }
 
         public State Active { get; private set; }
@@ -35,9 +43,11 @@ namespace MassTransit.MultiStep.Saga
         public State Complete { get; private set; }
 
         public Event<IUnderwritingSubmissionSubmitted> UnderwritingSubmissionSubmitted { get; private set; }
+        public Event<ICreditCheckCompleted> CreditCheckCompleted { get; private set; }
+        public Event<IAssesmentRequestCompleted> AssesmentRequestCompleted { get; private set; }
     }
 
-    public class Credit : ICheckCreditForSubmission
+    public class UnderwritingSubmissionActivated : IUnderwritingSubmissionActivated
     {
         public Guid SubmissionId { get; set; }
     }

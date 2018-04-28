@@ -14,5 +14,16 @@ namespace MassTransit.MultiStep.Saga
         public Guid? JobRequestId { get; set; }
 
         public Guid? SubmissionId { get; set; }
+
+        public UnderwritingStateTracking Tracking { get; set; }
+    }
+
+    [Flags]
+    internal enum UnderwritingStateTracking
+    {
+        None = 0,
+        CreditCheckCompleted = 1,
+        AssesmentRequestCompleted = 2,
+        ApprovalCompleted = 4
     }
 }
