@@ -12,6 +12,8 @@ namespace MassTransit.MultiStep.CreditService
         {
             await Console.Out.WriteLineAsync($"!!!!!!!! Checking Credit");
 
+            await Task.Delay(10000);
+
             await context.Publish(new CreditCheckCompleted() { SubmissionId = context.Message.SubmissionId });
         }
     }

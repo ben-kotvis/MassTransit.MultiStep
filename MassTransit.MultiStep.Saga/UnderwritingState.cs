@@ -16,6 +16,8 @@ namespace MassTransit.MultiStep.Saga
         public Guid? SubmissionId { get; set; }
 
         public UnderwritingStateTracking Tracking { get; set; }
+
+        public Guid? ExpirationId { get; set; }
     }
 
     [Flags]

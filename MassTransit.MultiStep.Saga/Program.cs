@@ -17,6 +17,8 @@ namespace MassTransit.MultiStep.Saga
                     h.Username("guest");
                     h.Password("guest");
                 });
+            
+                sbc.UseInMemoryScheduler();
 
                 sbc.ReceiveEndpoint(host, "underwriting-state-sag", ep =>
                 {

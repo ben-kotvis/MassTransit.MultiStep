@@ -12,3 +12,5 @@
 /MassTransit.MultiStep.Saga/bin/Debug/netcoreapp2.0
 /MassTransit.MultiStep.CreditService/bin/Debug/netcoreapp2.0
 /MassTransit.MultiStep.CreditService/obj
+/MassTransit.MultiStep.Scheduling/bin/Debug/netcoreapp2.0
+/MassTransit.MultiStep.Scheduling/obj
