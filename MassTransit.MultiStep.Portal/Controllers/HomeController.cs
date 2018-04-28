@@ -5,18 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MassTransit.MultiStep.Portal.Models;
+using MassTransit.MultiStep.Portal.Infrastructure;
+using MassTransit.MultiStep.Common.EventMessages;
 
 namespace MassTransit.MultiStep.Portal.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly EventPublishingService _eventPublishingService;
+        public HomeController(EventPublishingService eventPublishingService)
+        {
+            _eventPublishingService = eventPublishingService;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> About()
         {
+            await _eventPublishingService.Publish<IUnderwritingSubmissionSubmitted>(new UnderwritingSubmissionSubmitted()
+            {
+                SubmissionId = Guid.NewGuid(),
+                SubmittedBy = "Ben"
+            });
+
             ViewData["Message"] = "Your application description page.";
 
             return View();
