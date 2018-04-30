@@ -14,3 +14,8 @@
 /MassTransit.MultiStep.CreditService/obj
 /MassTransit.MultiStep.Scheduling/bin/Debug/netcoreapp2.0
 /MassTransit.MultiStep.Scheduling/obj
+/MassTransit.MultiStep.Common/bin/Release/netstandard2.0
+/MassTransit.MultiStep.CreditService/bin/Release/netcoreapp2.0
+/MassTransit.MultiStep.Portal/bin/Release/netcoreapp2.0
+/MassTransit.MultiStep.Portal/Properties/PublishProfiles
+/MassTransit.MultiStep.Saga/bin/Release/netcoreapp2.0

@@ -12,7 +12,7 @@ WORKDIR /src/MassTransit.MultiStep.Portal
 RUN dotnet build -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish -c Release -o /app
+RUN dotnet publish -c Release -o /app -r linux-x64
 
 FROM base AS final
 WORKDIR /app

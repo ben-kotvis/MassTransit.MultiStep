@@ -1,68 +1,129 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: azure-vote-back
+  name: abi-rabbit
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: azure-vote-back
+        app: abi-rabbit
     spec:
       containers:
-      - name: azure-vote-back
-        image: redis
+      - name: abi-rabbit
+        image: rabbitmq:3-management
         ports:
-        - containerPort: 6379
-          name: redis
+        - containerPort: 5672
+          name: abi-rabbit
+        - containerPort: 15672
+          name: management
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: azure-vote-back
+  name: abi-rabbit
 spec:
+  type: LoadBalancer
   ports:
-  - port: 6379
+  - port: 5672
+    name: abi-rabbit
+  - port: 15672
+    name: management
   selector:
-    app: azure-vote-back
+    app: abi-rabbit
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: azure-vote-front
+  name: portal
 spec:
   replicas: 1
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 5 
   template:
     metadata:
       labels:
-        app: azure-vote-front
+        app: portal
     spec:
       containers:
-      - name: azure-vote-front
-        image: microsoft/azure-vote-front:v1
+      - name: portal
+        image: microservicesexampleregistry.azurecr.io/masstransitmultistepportal:v1
         ports:
         - containerPort: 80
+          name: portal
         resources:
           requests:
             cpu: 250m
           limits:
             cpu: 500m
-        env:
-        - name: REDIS
-          value: "azure-vote-back"
+      imagePullSecrets:
+      - name: acr-authentication
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: azure-vote-front
+  name: portal
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: azure-vote-front
+    app: portal
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: creditservice
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: creditservice
+    spec:
+      containers:
+      - name: creditservice
+        image: microservicesexampleregistry.azurecr.io/masstransitmultistepcreditservice:v1
+        ports:
+        - containerPort: 8082
+          name: creditservice
+      imagePullSecrets:
+      - name: acr-authentication
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: creditservice
+spec:
+  ports:
+  - port: 8082
+  selector:
+    app: creditservice
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: saga
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: saga
+    spec:
+      containers:
+      - name: saga
+        image: microservicesexampleregistry.azurecr.io/masstransitmultistepsaga:v1
+        ports:
+        - containerPort: 8082
+          name: saga
+      imagePullSecrets:
+      - name: acr-authentication
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: saga
+spec:
+  ports:
+  - port: 8082
+  selector:
+    app: saga
