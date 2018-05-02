@@ -3,24 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.Portal", "MassTransit.MultiStep.Portal\MassTransit.MultiStep.Portal.csproj", "{F5325138-944C-40EA-B30E-89EB3E018C96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.Portal", "MassTransit.MultiStep.Portal\MassTransit.MultiStep.Portal.csproj", "{F5325138-944C-40EA-B30E-89EB3E018C96}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{4D82D452-4B05-4097-808A-DC7C767F5811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.Saga", "MassTransit.MultiStep.Saga\MassTransit.MultiStep.Saga.csproj", "{59F151B7-A94C-40C4-9545-09F81A10E867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.Saga", "MassTransit.MultiStep.Saga\MassTransit.MultiStep.Saga.csproj", "{59F151B7-A94C-40C4-9545-09F81A10E867}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{BDF83330-447F-4FBE-822D-C7E63827737D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.Common", "MassTransit.MultiStep.Common\MassTransit.MultiStep.Common.csproj", "{503D3587-D6AE-4BBA-8F31-46EEDE9C5CCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.Common", "MassTransit.MultiStep.Common\MassTransit.MultiStep.Common.csproj", "{503D3587-D6AE-4BBA-8F31-46EEDE9C5CCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.CreditService", "MassTransit.MultiStep.CreditService\MassTransit.MultiStep.CreditService.csproj", "{ABC91374-3D5D-4CF9-8AAD-6BE1FFD29FF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.CreditService", "MassTransit.MultiStep.CreditService\MassTransit.MultiStep.CreditService.csproj", "{ABC91374-3D5D-4CF9-8AAD-6BE1FFD29FF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.Scheduling", "MassTransit.MultiStep.Scheduling\MassTransit.MultiStep.Scheduling.csproj", "{70E2D86F-B1DA-46DC-94AC-473998582B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.Scheduling", "MassTransit.MultiStep.Scheduling\MassTransit.MultiStep.Scheduling.csproj", "{70E2D86F-B1DA-46DC-94AC-473998582B77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFB57D63-FF69-4C92-87B1-72FC6FEF76FD}"
 	ProjectSection(SolutionItems) = preProject
 		masstransit-multistep.yaml = masstransit-multistep.yaml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.RequestAssessment", "..\MassTransit.MultiStep.RequestAssessment\MassTransit.MultiStep.RequestAssessment.csproj", "{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{70E2D86F-B1DA-46DC-94AC-473998582B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70E2D86F-B1DA-46DC-94AC-473998582B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70E2D86F-B1DA-46DC-94AC-473998582B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

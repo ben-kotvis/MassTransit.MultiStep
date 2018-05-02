@@ -12,7 +12,7 @@ namespace MassTransit.MultiStep.Portal.Infrastructure
         private readonly IBusControl _busControl;
 
         public EventPublishingService()
-        {
+        {           
                 _busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     var host = cfg.Host(new Uri("rabbitmq://abi-rabbit"), h =>

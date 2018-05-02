@@ -1,6 +1,8 @@
 ﻿using MassTransit.Saga;
 using System;
-using MassTransit.RabbitMqTransport;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace MassTransit.MultiStep.Saga
 {
@@ -8,31 +10,18 @@ namespace MassTransit.MultiStep.Saga
     {
         static void Main(string[] args)
         {
-            var machine = new UnderwritingStateMachine();
-            var repository = new InMemorySagaRepository<UnderwritingState>();
-            var bus = Bus.Factory.CreateUsingRabbitMq(sbc =>
-            {
-                var host = sbc.Host(new Uri("rabbitmq://abi-rabbit"), h =>
-                {
-                    h.Username("guest");
-                    h.Password("guest");
-                });
-            
-                sbc.UseInMemoryScheduler();
-
-                sbc.ReceiveEndpoint(host, "underwriting-state-sag", ep =>
-                {
-                    ep.PrefetchCount = 8;
-                    ep.StateMachineSaga<UnderwritingState>(machine, repository);
-                });
-            });
-
-            bus.Start();
-
-            Console.WriteLine("Press any key to exit");
-            Console.Read();
-
-            bus.Stop();
+            BuildWebHost(args).Run();
         }
+
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+            .UseStartup<Startup>()
+            .ConfigureLogging((hostingContext, builder) =>
+            {
+                builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                builder.AddDebug();
+                builder.AddConsole();
+            }).Build();
+
     }
 }
