@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MassTransit.MultiStep.CommonBusSetup\MassTransit.MultiStep.CommonBusSetup.csproj" />
+    <ProjectReference Include="..\MassTransit.MultiStep.CommonBusSetup\MassTransit.MultiStep.CommonBusSetup.csproj" />
     <ProjectReference Include="..\MassTransit.MultiStep.Common\MassTransit.MultiStep.Common.csproj" />
   </ItemGroup>
 

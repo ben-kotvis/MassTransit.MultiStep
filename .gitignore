@@ -23,3 +23,9 @@
 /MassTransit.MultiStep.Common/bin/Debug
 /MassTransit.MultiStep.Scheduling/bin/Release/netcoreapp2.0
 /MassTransit.MultiStep.Portal/wwwroot
+/obj/*
+/bin/*
+/MassTransit.MultiStep.CommonBusSetup/bin/Debug/netstandard2.0
+/MassTransit.MultiStep.CommonBusSetup/obj
+/MassTransit.MultiStep.RequestAssessment/bin/Debug/netcoreapp2.0
+/MassTransit.MultiStep.RequestAssessment/obj
