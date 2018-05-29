@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MassTransit.RabbitMqTransport;
 using MassTransit.Saga;
+using MassTransit.MultiStep.CommonBusSetup;
 
 namespace MassTransit.MultiStep.Saga
 {
@@ -23,14 +24,18 @@ namespace MassTransit.MultiStep.Saga
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<SagaBusControl>();
-
+            services.AddSingleton<BusManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.ApplicationServices.GetService<SagaBusControl>().Start();
+            var machine = new UnderwritingStateMachine();
+            var repository = new InMemorySagaRepository<UnderwritingState>();
+            app.ApplicationServices.GetService<BusManager>().Start(ep =>
+            {
+                ep.StateMachineSaga<UnderwritingState>(machine, repository);
+            }, "underwriting-state-saga");
         }
     }
 }

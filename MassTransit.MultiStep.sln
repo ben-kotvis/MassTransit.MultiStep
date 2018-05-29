@@ -22,7 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		masstransit-multistep.yaml = masstransit-multistep.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.RequestAssessment", "..\MassTransit.MultiStep.RequestAssessment\MassTransit.MultiStep.RequestAssessment.csproj", "{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.MultiStep.RequestAssessment", "..\MassTransit.MultiStep.RequestAssessment\MassTransit.MultiStep.RequestAssessment.csproj", "{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.MultiStep.CommonBusSetup", "..\MassTransit.MultiStep.CommonBusSetup\MassTransit.MultiStep.CommonBusSetup.csproj", "{E7D6921D-57B0-4BC8-AC49-372257405960}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,12 +60,17 @@ Global
 		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AA669D0-CA79-4EEF-B65B-56A620E95CC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D6921D-57B0-4BC8-AC49-372257405960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D6921D-57B0-4BC8-AC49-372257405960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D6921D-57B0-4BC8-AC49-372257405960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D6921D-57B0-4BC8-AC49-372257405960}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{503D3587-D6AE-4BBA-8F31-46EEDE9C5CCB} = {BDF83330-447F-4FBE-822D-C7E63827737D}
+		{E7D6921D-57B0-4BC8-AC49-372257405960} = {BDF83330-447F-4FBE-822D-C7E63827737D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EF022F0-D83C-4959-B0A7-7AAF7BD81F12}

@@ -16,6 +16,7 @@ namespace MassTransit.MultiStep.Saga
             Event(() => UnderwritingSubmissionSubmitted, x => x.CorrelateById(context => context.Message.SubmissionId));
             Event(() => CreditCheckCompleted, x => x.CorrelateById(context => context.Message.SubmissionId));
             Event(() => AssesmentRequestCompleted, x => x.CorrelateById(context => context.Message.SubmissionId));
+            Event(() => UnderwritingSubmissionSubmittedFault, x => x.CorrelateById(context => context.Message.Message.SubmissionId));
 
             Schedule(() => ScheduleElapsed, x => x.ExpirationId, x =>
             {
@@ -32,9 +33,16 @@ namespace MassTransit.MultiStep.Saga
                     })
                     .ThenAsync(context => Console.Out.WriteLineAsync($"!!!!!!!! Submission Submitted"))
                     .ThenAsync(context => context.Publish(new UnderwritingSubmissionActivated() { SubmissionId = context.Instance.SubmissionId.Value }))
-                    .Schedule(ScheduleElapsed, y => new CheckSubmissionScheduleElapsedEvent() { SubmissionId = y.Instance.SubmissionId.Value }) // Schdule
+                    .Schedule(ScheduleElapsed, y => new CheckSubmissionScheduleElapsedEvent() { SubmissionId = y.Instance.SubmissionId.Value }) // Schdule                    
                     .TransitionTo(Active)
                     );
+
+            DuringAny(
+               When(UnderwritingSubmissionSubmittedFault)
+               .ThenAsync(context => Console.Out.WriteLineAsync("Caught error in Saga"))
+
+               );
+
             During(Active,
                 When(CreditCheckCompleted)
                     .Then(context => context.Instance.Tracking |= UnderwritingStateTracking.CreditCheckCompleted)
@@ -79,6 +87,8 @@ namespace MassTransit.MultiStep.Saga
         public Event<IUnderwritingSubmissionSubmitted> UnderwritingSubmissionSubmitted { get; private set; }
         public Event<ICreditCheckCompleted> CreditCheckCompleted { get; private set; }
         public Event<IAssesmentRequestCompleted> AssesmentRequestCompleted { get; private set; }
+
+        public Event<Fault<IUnderwritingSubmissionActivated>> UnderwritingSubmissionSubmittedFault { get; private set; }
         #endregion
 
         #region
