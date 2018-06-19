@@ -8,19 +8,34 @@ services:
     volumes:
      - /var/lib/rabbitmq
     image: rabbitmq:3-management
-  masstransit.multistep.portal:
-    image: masstransitmultistepportal
-    build:
-      context: .
-      dockerfile: MassTransit.MultiStep.Portal/Dockerfile
-  masstransit.multistep.saga:
+  masstransitmultistepsaga:
     image: masstransitmultistepsaga
     build:
       context: .
       dockerfile: MassTransit.MultiStep.Saga/Dockerfile
-  masstransit.multistep.creditservice:
+  masstransitmultistepcreditservice:
     image: masstransitmultistepcreditservice
     build:
       context: .
-      dockerfile: MassTransit.MultiStep.CreditService/Dockerfile
-      
+      dockerfile: MassTransit.MultiStep.CreditService/Dockerfile      
+  masstransitmultistepapi:
+    ports:
+     - "8181:80"
+    image: masstransitmultistepapi
+    build:
+      context: .
+      dockerfile: MassTransit.MultiStep.Api/Dockerfile
+  masstransitmultistepportal:
+    image: masstransitmultistepportal
+    build:
+      context: .
+      dockerfile: MassTransit.MultiStep.Portal/Dockerfile
+  masstransitmultistepangular:
+    ports:
+     - "32770:80"
+     - "4200:4200"
+     - "4201:4201"
+    image: masstransitmultistepangular
+    build:
+      context: .
+      dockerfile: MassTransit.MultiStep.Angular/Dockerfile

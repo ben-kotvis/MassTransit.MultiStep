@@ -1,4 +1,5 @@
 ﻿using MassTransit.MultiStep.Common.EventMessages;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,14 @@ namespace MassTransit.MultiStep.CreditService
 
             await Task.Delay(5000);
 
-            throw new Exception("Problem occurred");
+            var client = new RestClient("http://masstransitmultistepportal/api/values");
+            var response = await client.ExecuteGetTaskAsync(new RestRequest(Method.GET));
+
+
+            var apiClient = new RestClient("http://masstransitmultistepapi/api/values");
+            var apiResponse = await apiClient.ExecuteGetTaskAsync(new RestRequest(Method.GET));
+
+            //throw new Exception("Problem occurred");
             //await context.Publish(new CreditCheckCompleted() { SubmissionId = context.Message.SubmissionId });
 
             

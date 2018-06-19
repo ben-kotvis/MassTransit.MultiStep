@@ -1,0 +1,18 @@
+FROM microsoft/aspnetcore-build:2.0
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+
+EXPOSE 80
+
+WORKDIR /src
+COPY MassTransit.MultiStep.sln ./
+COPY MassTransit.MultiStep.Common/MassTransit.MultiStep.Common.csproj MassTransit.MultiStep.Common/
+COPY MassTransit.MultiStep.CommonBusSetup/MassTransit.MultiStep.CommonBusSetup.csproj MassTransit.MultiStep.CommonBusSetup/
+COPY MassTransit.MultiStep.CreditService/MassTransit.MultiStep.CreditService.csproj MassTransit.MultiStep.CreditService/
+
+RUN dotnet restore -nowarn:msb3202,nu1503
+COPY . .
+WORKDIR /src/MassTransit.MultiStep.CreditService
+RUN dotnet build MassTransit.MultiStep.CreditService.csproj
+
+CMD ["dotnet", "run", "--no-restore", "--no-build", "--no-launch-profile"]

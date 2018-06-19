@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: abi-rabbit
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5672
+    name: abi-rabbit
+  - port: 15672
+    name: management
+  selector:
+    app: abi-rabbit
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "masstransitmultistepportal.fullname" . }}
+  labels:
+    app: {{ template "masstransitmultistepportal.name" . }}
+    chart: {{ template "masstransitmultistepportal.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "masstransitmultistepportal.name" . }}
+    release: {{ .Release.Name }}

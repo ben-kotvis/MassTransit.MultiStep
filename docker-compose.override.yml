@@ -1,11 +1,18 @@
 version: '3.4'
 
 services:
-  masstransit.multistep.portal:
+  masstransitmultistepapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - USER_SECRETS_ID=dd7e0cb0-ba46-4be8-a878-ccb1000d75b0
     ports:
       - "80"
-    volumes:
-      - C:/Users/bkotvis/AppData/Roaming/Microsoft/UserSecrets/$USER_SECRETS_ID:/root/.microsoft/usersecrets/$USER_SECRETS_ID
+  masstransitmultistepportal:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  masstransitmultistepangular:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
